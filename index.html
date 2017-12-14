@@ -51,6 +51,9 @@
 
 
 	<script>
+
+
+
 		var values = [
 			{
 				"name": "Jeux star wars",
@@ -75,7 +78,17 @@
 		]
 
 		for (value in values) {
-			$("#product").append("<div class=\"col-md-12\">Nom: " + values[value].name + "<br>Prix: " + values[value].price + "<br>Image: <img src=\"" + values[value].image + "\"><button>Ajouter au panier</button></div>");
+			var xhttp = new XMLHttpRequest();
+			var request = "http://localhost:3000/product/" + values[value].name + "/" + values[value].price + "/" + "plop";
+    		xhttp.open("GET", request, false);
+    		xhttp.setRequestHeader("Content-type", "application/json");
+    		xhttp.send();
+    		var answer = xhttp.responseText;
+    		var response = JSON.parse(answer);
+			var qrcode = response["qrcode"];
+
+
+			$("#product").append("<div class=\"col-md-12\">Nom: " + values[value].name + "<br>Prix: " + values[value].price + "<br>Image: <img src=\"" + values[value].image + "\"><button>Ajouter au panier</button></div> ou <img src=\"" + qrcode + "\">");
 		}
 
 
