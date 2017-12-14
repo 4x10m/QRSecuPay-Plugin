@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script
+			  src="https://code.jquery.com/jquery-3.2.1.js"
+			  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+			  crossorigin="anonymous"></script>
+		
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
+ <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>  -->
 </head> 
 <body>
+
+
+
 	<p align="center"> Mon super site de e-commerce</p>
-	<div class="row">
+
+	<div id="product">
+
+<!-- 	<div class="row">
 	<div class="col-md-6">
 		Nom: Jeux star wars<br>
 		Prix: 20,95e<br>
@@ -34,7 +45,40 @@
 		Image: <img src="photo-produit/groot">
 
 		<button>Ajouter au panier</button>
+	</div> -->
 	</div>
-	</div>
+
+
+
+	<script>
+		var values = [
+			{
+				"name": "Jeux star wars",
+				"price": "20,95e",
+				"image": "photo-produit/banderole-party-in-progress"
+			},
+			{
+				"name": "BB8",
+				"price": "39,95e",
+				"image": "photo-produit/bb8"
+			},
+			{
+				"name": "Peluche angry bird",
+				"price": "15,95e",
+				"image": "photo-produit/peluche angry bird"
+			},
+			{
+				"name": "groot",
+				"price": "20,95e",
+				"image": "photo-produit/groot"
+			}
+		]
+
+		for (value in values) {
+			$("#product").append("<div class=\"col-md-12\">Nom: " + values[value].name + "<br>Prix: " + values[value].price + "<br>Image: <img src=\"" + values[value].image + "\"><button>Ajouter au panier</button></div>");
+		}
+
+
+	</script>
 </body>
 </html> 
