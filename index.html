@@ -22,40 +22,6 @@
 	<script>
 		var clientuuid = null;
 
-		var authOnBackend = function() {
-			var request = "http://localhost:3000/auth";
-
-			var xhttp = new XMLHttpRequest();
-			xhttp.open("GET", request, false);
-			xhttp.setRequestHeader("Content-type", "application/json");
-			xhttp.send();
-
-			var response = xhttp.responseText;
-			var jsonresponse = JSON.parse(response);
-			
-			clientuuid = jsonresponse["uuid"];
-
-			return clientuuid;
-		}
-
-		var initSocketOnBackend = function() {
-			var socket = io.connect('http://localhost:3001');
-
-			var clientuuid = authOnBackend();
-
-			socket.on('buy', function(serialuuid) {
-				console.log('buy: ' + serialuuid);
-
-				$("#" + serialuuid).src = "check.png";
-			});
-
-			socket.on('hello', function(status) {
-				console.log('hello: ' + status);
-			});
-
-			socket.emit("hello", clientuuid);
-		}
-
 		var objectToSell = [
 			{
 				"name": "Jeux star wars",
@@ -79,10 +45,50 @@
 			}
 		];
 
+		var authOnBackend = function() {
+			var request = "http://51.255.47.226:3000/auth";
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.open("GET", request, false);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send();
+
+			var response = xhttp.responseText;
+			var jsonresponse = JSON.parse(response);
+			
+			clientuuid = jsonresponse["uuid"];
+
+			return clientuuid;
+		}
+
+		var initSocketOnBackend = function() {
+			var socket = io.connect('http://51.255.47.226:3001');
+
+			var clientuuid = authOnBackend();
+
+			socket.on('buy', function(serialuuid) {
+				for (var index in objectToSell) {
+					var obj = objectToSell[index];
+
+					console.log('buy: ' + serialuuid + ', ' + obj.name);
+				}
+
+				$("#" + serialuuid).attr("src", "check.png");
+			});
+
+			socket.on('hello', function(status) {
+				console.log('hello: ' + status);
+			});
+
+			socket.emit("hello", clientuuid);
+		}
+
+
+
 		initSocketOnBackend();
 
 		for (index in objectToSell) {
-			var request = "http://localhost:3000/product-serial-qrcode/" + clientuuid;
+			var request = "http://51.255.47.226:3000/product-serial-qrcode/" + clientuuid;
 
 			var xhttp = new XMLHttpRequest();
 			xhttp.open("GET", request, false);
